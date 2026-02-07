@@ -37,16 +37,47 @@ function LocationMarker({ onLocationSelect }: { onLocationSelect: (lat: number, 
 export default function MapPicker({ onLocationSelect, initialLat = 33.5138, initialLng = 36.2765 }: MapPickerProps) {
   const handleLocationSelect = async (lat: number, lng: number) => {
     // Mock reverse geocoding - in production, use a real geocoding service
-    const address = `Damascus, Syria (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
+    // Generate a complete address with all components based on coordinates
+    
+    const streetNames = [
+      'Al-Maliki Street', 'Al-Hamra Street', 'Al-Mazzeh Street', 
+      'Al-Shahbandar Street', 'Al-Jalaa Street', 'Al-Qasr Street',
+      'Al-Baramkeh Street', 'Al-Salihiyah Street', 'Al-Midan Street',
+      'Al-Kassa Street', 'Al-Jisr Al-Abyad Street', 'Al-Mezzeh Highway'
+    ];
+    
+    const districts = [
+      'Al-Mazzeh', 'Al-Maliki', 'Al-Hamra', 'Al-Shahbandar', 
+      'Al-Salihiyah', 'Al-Midan', 'Al-Kassa', 'Al-Baramkeh',
+      'Al-Jisr Al-Abyad', 'Al-Qanawat', 'Al-Qadam', 'Al-Sayyida Zainab'
+    ];
+    
+    const buildingNumbers = Array.from({ length: 50 }, (_, i) => i + 1);
+    
+    // Use coordinates to generate consistent but varied addresses
+    const coordHash = Math.floor((lat * 1000 + lng * 1000) % 10000);
+    const streetIndex = coordHash % streetNames.length;
+    const districtIndex = Math.floor(coordHash / 100) % districts.length;
+    const buildingIndex = coordHash % buildingNumbers.length;
+    
+    const streetName = streetNames[streetIndex];
+    const district = districts[districtIndex];
+    const buildingNumber = buildingNumbers[buildingIndex];
+    const city = 'Damascus';
+    const country = 'Syria';
+    
+    // Format: Building Number, Street Name, District, City, Country
+    const address = `${buildingNumber} ${streetName}, ${district}, ${city}, ${country}`;
+    
     onLocationSelect(lat, lng, address);
   };
 
   return (
-    <div className="rounded-lg overflow-hidden border-2 border-purple-200">
+    <div className="rounded-lg overflow-hidden border-2 border-emerald-200 shadow-md transition-all duration-300">
       <MapContainer
         center={[initialLat, initialLng]}
         zoom={13}
-        style={{ height: '300px', width: '100%' }}
+        style={{ height: '400px', width: '100%' }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

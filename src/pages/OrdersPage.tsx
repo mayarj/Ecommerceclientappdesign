@@ -16,7 +16,7 @@ export default function OrdersPage() {
       case 'processing':
         return 'bg-blue-500';
       case 'shipped':
-        return 'bg-purple-500';
+        return 'bg-emerald-500';
       case 'delivered':
         return 'bg-green-500';
       case 'cancelled':
@@ -28,7 +28,7 @@ export default function OrdersPage() {
 
   if (orders.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-stone-50 via-slate-50 to-stone-100 flex items-center justify-center">
         <div className="text-center">
           <Package className="h-24 w-24 text-gray-300 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('myOrders')}</h2>
@@ -39,7 +39,7 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-slate-50 to-stone-100">
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-8">{t('myOrders')}</h1>
 
@@ -51,7 +51,7 @@ export default function OrdersPage() {
                 <div className="flex-1 space-y-4">
                   <div className="flex items-center gap-4 flex-wrap">
                     <div className="flex items-center gap-2">
-                      <Package className="h-5 w-5 text-purple-600" />
+                      <Package className="h-5 w-5 text-emerald-600" />
                       <span className="font-bold text-lg">
                         {t('orderNumber')} {order.id}
                       </span>
@@ -90,7 +90,7 @@ export default function OrdersPage() {
                         const displayName = language === 'ar' ? item.nameAr : item.name;
                         return (
                           <div key={`${item.id}-${index}`} className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg overflow-hidden flex-shrink-0">
+                            <div className="w-12 h-12 bg-gradient-to-br from-stone-100 to-slate-100 rounded-lg overflow-hidden flex-shrink-0">
                               <img
                                 src={item.images[0]}
                                 alt={displayName}
@@ -115,9 +115,9 @@ export default function OrdersPage() {
                 </div>
 
                 {/* Order Total */}
-                <div className="lg:w-48 bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-4">
+                <div className="lg:w-48 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-lg p-4">
                   <p className="text-sm text-gray-600 mb-2">{t('total')}</p>
-                  <p className="text-2xl font-bold text-purple-600">${order.totalUSD.toFixed(2)}</p>
+                  <p className="text-2xl font-bold text-emerald-700">${order.totalUSD.toFixed(2)}</p>
                   <p className="text-sm font-semibold text-gray-700">
                     {order.totalSYP.toLocaleString()} SYP
                   </p>

@@ -7,7 +7,7 @@ export default function PromotionBanner() {
   const { t } = useTranslation();
 
   return (
-    <div className="bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 rounded-xl p-6 shadow-lg">
+    <div className="bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 rounded-xl p-6 shadow-lg">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="bg-white/20 p-3 rounded-full backdrop-blur-sm">
@@ -19,7 +19,7 @@ export default function PromotionBanner() {
           </div>
         </div>
         
-        <Button className="bg-white text-orange-600 hover:bg-gray-100 font-semibold px-8">
+        <Button className="bg-white text-amber-600 hover:bg-amber-50 font-semibold px-8 transition-colors">
           {t('shopNow')}
         </Button>
       </div>

@@ -40,7 +40,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-slate-50 to-stone-100">
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-8">{t('myProfile')}</h1>
 
@@ -48,7 +48,7 @@ export default function ProfilePage() {
           {/* Profile Header */}
           <Card className="p-6">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md">
                 <User className="h-10 w-10 text-white" />
               </div>
               <div>
@@ -115,26 +115,30 @@ export default function ProfilePage() {
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   className="mt-1"
-                  placeholder={t('address')}
+                  placeholder="Building Number, Street Name, District, City, Country"
                 />
                 <Button
                   onClick={() => setShowMap(!showMap)}
                   variant="outline"
-                  className="w-full mt-2 border-2 border-purple-300 hover:border-purple-500"
+                  className="w-full mt-2 border-2 border-emerald-300 hover:border-emerald-500 bg-white hover:bg-emerald-50 transition-all duration-300"
                 >
                   <MapPin className="h-5 w-5 mr-2" />
                   {showMap ? t('hideMap') : t('selectLocationOnMap')}
                 </Button>
-                {showMap && (
-                  <div className="mt-4">
-                    <MapPicker onLocationSelect={handleLocationSelect} />
-                  </div>
-                )}
+                <div className={`mt-4 overflow-hidden transition-all duration-500 ease-in-out ${
+                  showMap ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+                }`}>
+                  {showMap && (
+                    <div className="pt-2">
+                      <MapPicker onLocationSelect={handleLocationSelect} />
+                    </div>
+                  )}
+                </div>
               </div>
 
               <Button
                 onClick={handleSave}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-colors duration-300"
               >
                 <Save className="mr-2 h-5 w-5" />
                 {t('saveChanges')}
@@ -148,7 +152,7 @@ export default function ProfilePage() {
 
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Globe className="h-6 w-6 text-purple-600" />
+                <Globe className="h-6 w-6 text-emerald-600" />
                 <div>
                   <p className="font-semibold text-gray-800">{t('language')}</p>
                   <p className="text-sm text-gray-600">
@@ -160,7 +164,7 @@ export default function ProfilePage() {
               <Button
                 onClick={toggleLanguage}
                 variant="outline"
-                className="border-2 border-purple-300 hover:border-purple-500"
+                className="border-2 border-emerald-300 hover:border-emerald-500 bg-white hover:bg-emerald-50 transition-all duration-300"
               >
                 {language === 'en' ? t('arabic') : t('english')}
               </Button>

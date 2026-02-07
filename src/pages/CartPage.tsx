@@ -33,13 +33,13 @@ export default function CartPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-stone-50 via-slate-50 to-stone-100 flex items-center justify-center">
         <div className="text-center">
           <ShoppingBag className="h-24 w-24 text-gray-300 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('emptyCart')}</h2>
           <Button
             onClick={() => navigate('/')}
-            className="mt-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+            className="mt-4 bg-emerald-600 hover:bg-emerald-700 text-white transition-colors"
           >
             {t('shopNow')}
           </Button>
@@ -49,7 +49,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-slate-50 to-stone-100">
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-8">{t('myCart')}</h1>
 
@@ -64,34 +64,91 @@ export default function CartPage() {
               const itemPriceSYP = item.discount 
                 ? item.priceSYP * (1 - item.discount / 100)
                 : item.priceSYP;
+              
+              // Use cartItemId if available, otherwise fallback to id-index combination
+              const cartItemId = item.cartItemId || `${item.id}-${index}`;
 
               return (
-                <Card key={`${item.id}-${index}`} className="p-4">
+                <Card key={cartItemId} className="p-4">
                   <div className="flex gap-4">
-                    <div className="w-24 h-24 bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg overflow-hidden flex-shrink-0">
+                    <div className="w-24 h-24 bg-gradient-to-br from-stone-100 to-slate-100 rounded-lg overflow-hidden flex-shrink-0">
                       <img
-                        src={item.images[0]}
+                        src={
+                          item.selectedColor && item.imageVariations?.[item.selectedColor]
+                            ? item.imageVariations[item.selectedColor][0]
+                            : item.images[0]
+                        }
                         alt={displayName}
                         className="w-full h-full object-cover"
                       />
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-gray-800 mb-1">{displayName}</h3>
+                      <h3 className="font-semibold text-gray-800 mb-2">{displayName}</h3>
                       
-                      {item.selectedColor && (
-                        <p className="text-sm text-gray-600">
-                          {t('color')}: {item.selectedColor}
-                        </p>
-                      )}
-                      {item.selectedSize && (
-                        <p className="text-sm text-gray-600">
-                          {t('size')}: {item.selectedSize}
-                        </p>
+                      {/* Color Selection */}
+                      {item.colors && item.colors.length > 0 && (
+                        <div className="mb-2">
+                          <label className="text-xs font-medium text-gray-600 mb-1 block">
+                            {t('color')}:
+                          </label>
+                          <div className="flex flex-wrap gap-2">
+                            {item.colors.map((color) => (
+                              <Button
+                                key={color}
+                                variant={item.selectedColor === color ? 'default' : 'outline'}
+                                size="sm"
+                                onClick={() =>
+                                  updateCartItem(cartItemId, {
+                                    selectedColor: color,
+                                    images: item.imageVariations?.[color] || item.images,
+                                  })
+                                }
+                                className={
+                                  item.selectedColor === color
+                                    ? 'bg-emerald-600 text-white hover:bg-emerald-700 h-7 text-xs px-2'
+                                    : 'border-stone-300 bg-white text-stone-700 hover:border-emerald-400 h-7 text-xs px-2'
+                                }
+                              >
+                                {color}
+                              </Button>
+                            ))}
+                          </div>
+                        </div>
                       )}
 
-                      <div className="mt-2 space-y-1">
-                        <p className="font-semibold text-purple-600">
+                      {/* Size Selection */}
+                      {item.sizes && item.sizes.length > 0 && (
+                        <div className="mb-2">
+                          <label className="text-xs font-medium text-gray-600 mb-1 block">
+                            {t('size')}:
+                          </label>
+                          <div className="flex flex-wrap gap-2">
+                            {item.sizes.map((size) => (
+                              <Button
+                                key={size}
+                                variant={item.selectedSize === size ? 'default' : 'outline'}
+                                size="sm"
+                                onClick={() =>
+                                  updateCartItem(cartItemId, {
+                                    selectedSize: size,
+                                  })
+                                }
+                                className={
+                                  item.selectedSize === size
+                                    ? 'bg-emerald-600 text-white hover:bg-emerald-700 h-7 text-xs px-2'
+                                    : 'border-stone-300 bg-white text-stone-700 hover:border-emerald-400 h-7 text-xs px-2'
+                                }
+                              >
+                                {size}
+                              </Button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="mt-3 space-y-1">
+                        <p className="font-semibold text-emerald-700">
                           ${itemPrice.toFixed(2)} × {item.quantity}
                         </p>
                         <p className="text-sm text-gray-600">
@@ -104,7 +161,7 @@ export default function CartPage() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        onClick={() => removeFromCart(item.id)}
+                        onClick={() => removeFromCart(cartItemId)}
                         className="text-red-500 hover:text-red-700 hover:bg-red-50"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -116,7 +173,7 @@ export default function CartPage() {
                           size="icon"
                           className="h-8 w-8"
                           onClick={() =>
-                            updateCartItem(item.id, {
+                            updateCartItem(cartItemId, {
                               quantity: Math.max(1, item.quantity - 1),
                             })
                           }
@@ -129,7 +186,7 @@ export default function CartPage() {
                           size="icon"
                           className="h-8 w-8"
                           onClick={() =>
-                            updateCartItem(item.id, {
+                            updateCartItem(cartItemId, {
                               quantity: item.quantity + 1,
                             })
                           }
@@ -170,7 +227,7 @@ export default function CartPage() {
                   <div className="flex justify-between font-bold text-lg">
                     <span>{t('total')}</span>
                     <div className="text-right">
-                      <div className="text-purple-600">${totalUSD.toFixed(2)}</div>
+                      <div className="text-emerald-700">${totalUSD.toFixed(2)}</div>
                       <div className="text-sm text-gray-700">{totalSYP.toLocaleString()} SYP</div>
                     </div>
                   </div>
@@ -179,7 +236,7 @@ export default function CartPage() {
 
               <Button
                 onClick={() => navigate('/checkout')}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white h-12"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white h-12 transition-colors"
               >
                 {t('checkout')}
               </Button>

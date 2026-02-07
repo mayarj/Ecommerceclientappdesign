@@ -31,7 +31,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-slate-50 to-stone-100">
       <div className="container mx-auto px-4 py-8">
         {/* Category Filter */}
         <div className="mb-8">
@@ -46,8 +46,8 @@ export default function HomePage() {
                   variant={selectedCategory === category.id ? 'default' : 'outline'}
                   className={
                     selectedCategory === category.id
-                      ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
-                      : 'border-2 border-purple-200 hover:border-purple-400'
+                      ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+                      : 'border-2 border-stone-300 hover:border-emerald-400 bg-white text-stone-700'
                   }
                 >
                   {Icon && <Icon className="h-4 w-4 mr-2" />}
@@ -64,7 +64,7 @@ export default function HomePage() {
             {t('products')} ({filteredProducts.length})
           </h2>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {productsWithPromotions.map((item: any, index) => {
               if (item.type === 'promotion') {
                 return (

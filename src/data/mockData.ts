@@ -20,6 +20,7 @@ export interface Product {
 }
 
 export interface CartItem extends Product {
+  cartItemId?: string; // Unique identifier for cart items (allows same product with different options)
   quantity: number;
   selectedColor?: string;
   selectedSize?: string;

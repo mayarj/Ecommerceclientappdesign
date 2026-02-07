@@ -37,7 +37,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-500 via-emerald-600 to-slate-600 flex items-center justify-center p-4">
       <Button
         variant="outline"
         size="icon"
@@ -49,7 +49,7 @@ export default function LoginPage() {
 
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
         <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full mx-auto mb-4 flex items-center justify-center shadow-md">
             <Phone className="h-10 w-10 text-white" />
           </div>
           <h1 className="text-3xl font-bold text-gray-800 mb-2">{t('welcome')}</h1>
@@ -87,7 +87,7 @@ export default function LoginPage() {
 
             <Button 
               onClick={handleSendCode}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-colors"
               size="lg"
             >
               <MessageSquare className="mr-2 h-5 w-5" />
@@ -116,7 +116,7 @@ export default function LoginPage() {
             <div className="space-y-3">
               <Button 
                 onClick={handleVerify}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-colors"
                 size="lg"
               >
                 {t('verify')}
@@ -132,7 +132,7 @@ export default function LoginPage() {
 
               <button
                 onClick={handleSendCode}
-                className="w-full text-sm text-purple-600 hover:text-purple-700 underline"
+                className="w-full text-sm text-emerald-600 hover:text-emerald-700 underline"
               >
                 {t('resendCode')}
               </button>

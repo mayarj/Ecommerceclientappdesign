@@ -83,7 +83,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-slate-50 to-stone-100">
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-8">{t('checkout')}</h1>
 
@@ -93,7 +93,7 @@ export default function CheckoutPage() {
             {/* Delivery Information */}
             <Card className="p-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-full">
+                <div className="bg-emerald-600 p-3 rounded-full">
                   <MapPin className="h-6 w-6 text-white" />
                 </div>
                 <h2 className="text-xl font-bold text-gray-800">{t('deliveryInfo')}</h2>
@@ -108,7 +108,7 @@ export default function CheckoutPage() {
                     id="address"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    placeholder={t('selectLocation')}
+                    placeholder="Building Number, Street Name, District, City, Country"
                     className="mt-1"
                   />
                 </div>
@@ -116,23 +116,29 @@ export default function CheckoutPage() {
                 <Button
                   onClick={() => setShowMap(!showMap)}
                   variant="outline"
-                  className="w-full border-2 border-purple-300 hover:border-purple-500"
+                  className="w-full border-2 border-emerald-300 hover:border-emerald-500 bg-white hover:bg-emerald-50 transition-all duration-300"
                 >
                   <MapPin className="h-5 w-5 mr-2" />
                   {showMap ? t('hideMap') : t('selectLocationOnMap')}
                 </Button>
 
                 {/* Map */}
-                {showMap && (
-                  <MapPicker onLocationSelect={handleLocationSelect} />
-                )}
+                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                  showMap ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+                }`}>
+                  {showMap && (
+                    <div className="pt-2">
+                      <MapPicker onLocationSelect={handleLocationSelect} />
+                    </div>
+                  )}
+                </div>
               </div>
             </Card>
 
             {/* Payment Method */}
             <Card className="p-6">
               <div className="flex items-center gap-3 mb-6">
-                <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-full">
+                <div className="bg-emerald-600 p-3 rounded-full">
                   <CreditCard className="h-6 w-6 text-white" />
                 </div>
                 <h2 className="text-xl font-bold text-gray-800">{t('paymentMethod')}</h2>
@@ -140,13 +146,13 @@ export default function CheckoutPage() {
 
               <RadioGroup value={paymentMethod} onValueChange={(v: any) => setPaymentMethod(v)}>
                 <div className="space-y-3">
-                  <label className="flex items-center space-x-3 p-4 border-2 rounded-lg cursor-pointer hover:border-purple-400 transition-colors">
+                  <label className="flex items-center space-x-3 p-4 border-2 rounded-lg cursor-pointer hover:border-emerald-400 transition-colors border-stone-200 hover:bg-emerald-50">
                     <RadioGroupItem value="cash" id="cash" />
-                    <DollarSign className="h-5 w-5 text-green-600" />
+                    <DollarSign className="h-5 w-5 text-emerald-600" />
                     <span className="flex-1 font-medium">{t('cashOnDelivery')}</span>
                   </label>
 
-                  <label className="flex items-center space-x-3 p-4 border-2 rounded-lg cursor-pointer hover:border-purple-400 transition-colors">
+                  <label className="flex items-center space-x-3 p-4 border-2 rounded-lg cursor-pointer hover:border-emerald-400 transition-colors border-stone-200 hover:bg-emerald-50">
                     <RadioGroupItem value="syriatelCash" id="syriatelCash" />
                     <CreditCard className="h-5 w-5 text-blue-600" />
                     <span className="flex-1 font-medium">{t('syriatelCash')}</span>
@@ -182,7 +188,7 @@ export default function CheckoutPage() {
                   <div className="flex justify-between font-bold text-lg">
                     <span>{t('total')}</span>
                     <div className="text-right">
-                      <div className="text-purple-600">${totalUSD.toFixed(2)}</div>
+                      <div className="text-emerald-700">${totalUSD.toFixed(2)}</div>
                       <div className="text-sm text-gray-700">{totalSYP.toLocaleString()} SYP</div>
                     </div>
                   </div>
@@ -191,7 +197,7 @@ export default function CheckoutPage() {
 
               <Button
                 onClick={handlePlaceOrder}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white h-12"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white h-12 transition-colors"
               >
                 <CheckCircle className="mr-2 h-5 w-5" />
                 {t('placeOrder')}

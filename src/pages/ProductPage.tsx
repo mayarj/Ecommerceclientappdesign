@@ -90,7 +90,7 @@ export default function ProductPage() {
   const isWeightBased = product.quantityType === 'weight';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-slate-50 to-stone-100">
       <div className="container mx-auto px-4 py-8">
         <Button
           variant="outline"
@@ -104,14 +104,14 @@ export default function ProductPage() {
         <div className="grid lg:grid-cols-2 gap-8 bg-white rounded-2xl shadow-lg p-6 lg:p-8">
           {/* Images Section */}
           <div className="space-y-4">
-            <div className="relative aspect-square bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl overflow-hidden">
+            <div className="relative aspect-square bg-gradient-to-br from-stone-100 to-slate-100 rounded-xl overflow-hidden">
               <img
                 src={currentImages[selectedImage]}
                 alt={displayName}
                 className="w-full h-full object-cover"
               />
               {product.discount && (
-                <Badge className="absolute top-4 right-4 text-lg bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2">
+                <Badge className="absolute top-4 right-4 text-lg bg-amber-500 text-white px-4 py-2 hover:bg-amber-500">
                   {product.discount}% {t('off')}
                 </Badge>
               )}
@@ -123,13 +123,13 @@ export default function ProductPage() {
                     onClick={handlePrevImage}
                     className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg transition-all"
                   >
-                    <ChevronLeft className="h-6 w-6 text-purple-600" />
+                    <ChevronLeft className="h-6 w-6 text-emerald-600" />
                   </button>
                   <button
                     onClick={handleNextImage}
                     className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg transition-all"
                   >
-                    <ChevronRight className="h-6 w-6 text-purple-600" />
+                    <ChevronRight className="h-6 w-6 text-emerald-600" />
                   </button>
                 </>
               )}
@@ -143,8 +143,8 @@ export default function ProductPage() {
                     onClick={() => setSelectedImage(index)}
                     className={`aspect-square rounded-lg overflow-hidden border-2 transition-all ${
                       selectedImage === index
-                        ? 'border-purple-500 ring-2 ring-purple-200'
-                        : 'border-gray-200 hover:border-purple-300'
+                        ? 'border-emerald-500 ring-2 ring-emerald-200'
+                        : 'border-stone-200 hover:border-emerald-300'
                     }`}
                   >
                     <img
@@ -175,28 +175,30 @@ export default function ProductPage() {
 
               <div className="space-y-2">
                 {product.discount && (
-                  <div className="flex items-center gap-3">
-                    <span className="text-xl text-gray-400 line-through">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                    <div className="text-base sm:text-xl text-gray-400 line-through">
                       ${product.priceUSD.toFixed(2)}
-                    </span>
-                    <span className="text-xl text-gray-400 line-through">
+                    </div>
+                    <div className="text-[10px] sm:text-base text-gray-400 line-through">
                       {product.priceSYP.toLocaleString()} SYP
-                    </span>
+                    </div>
                   </div>
                 )}
                 
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="text-3xl font-bold text-purple-600">
-                    ${finalPriceUSD.toFixed(2)}
-                  </span>
-                  <span className="text-xl font-semibold text-gray-700">
-                    {finalPriceSYP.toLocaleString()} SYP
-                  </span>
-                  {isWeightBased && product.weightUnit && (
-                    <span className="text-lg text-gray-500">
-                      / {product.weightUnit}
+                <div>
+                  <div className="flex items-baseline gap-2 flex-wrap mb-0.5 sm:mb-1">
+                    <span className="text-2xl sm:text-3xl font-bold text-emerald-700">
+                      ${finalPriceUSD.toFixed(2)}
                     </span>
-                  )}
+                    {isWeightBased && product.weightUnit && (
+                      <span className="text-sm sm:text-lg text-gray-500">
+                        / {product.weightUnit}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-[10px] sm:text-base font-semibold text-gray-700 leading-tight">
+                    {finalPriceSYP.toLocaleString()} SYP
+                  </div>
                 </div>
               </div>
             </div>
@@ -213,8 +215,8 @@ export default function ProductPage() {
                       onClick={() => setSelectedColor(color)}
                       className={
                         selectedColor === color
-                          ? 'bg-gradient-to-r from-purple-500 to-pink-500'
-                          : 'border-2'
+                          ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+                          : 'border-2 border-stone-300 bg-white text-stone-700 hover:border-emerald-400'
                       }
                     >
                       {color}
@@ -236,8 +238,8 @@ export default function ProductPage() {
                       onClick={() => setSelectedSize(size)}
                       className={
                         selectedSize === size
-                          ? 'bg-gradient-to-r from-purple-500 to-pink-500'
-                          : 'border-2'
+                          ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+                          : 'border-2 border-stone-300 bg-white text-stone-700 hover:border-emerald-400'
                       }
                     >
                       {size}
@@ -288,7 +290,7 @@ export default function ProductPage() {
             {/* Add to Cart Button */}
             <Button
               onClick={handleAddToCart}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white h-14 text-lg"
+              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white h-14 text-lg transition-colors"
             >
               <ShoppingCart className="mr-2 h-5 w-5" />
               {t('addToCart')}
